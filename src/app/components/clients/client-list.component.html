@@ -1,0 +1,50 @@
+<div class="form-group row"><!--Isso tem que ta em form-->
+    <label class="col-sm-2 col-form-label">Pesquisar pelo nome:</label>
+
+    <div class="col-sm-7">
+      <input  class="form-control"><!-- [(ngModel)]= "filter" -->
+    </div>
+
+    <div class="col-sm-3">
+      <button type="submit" class="btn btn-primary">Novo Cliente</button>
+    </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Income</th>
+      <th>Cpf</th>
+      <th>BirthDate</th>
+      <th>Children</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor= "let client of clients;
+      let clientData of data | paginate: {
+          id: 'listing_pagination',
+          itemsPerPage: 5,
+          currentPage: page,
+          totalItems:totalRecords}
+      ">
+        <td>{{ client.name }}</td>
+        <td>{{ client.income }}</td>
+        <td>{{ client.cpf }}</td>
+        <td>{{ client.birthDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ client.children }}</td>
+        <td>
+
+            <button type="button" class="btn btn-success">Editar</button>
+            <button type="button" class="btn btn-danger">Excluir</button>
+        </td>
+    </tr>
+  </tbody>
+</table>
+<div>
+  <pagination-controls  (click)="getUsers()" id="listing_pagination" (pageChange)="page = $event"></pagination-controls>
+</div>
+
+
+
