@@ -22,20 +22,19 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor= "let client of clients;
-      let clientData of data | paginate: {
-          id: 'listing_pagination',
-          itemsPerPage: 5,
-          currentPage: page,
-          totalItems:totalRecords}
+    <tr *ngFor= "let client of clients | paginate: {
+        id: 'listing_pagination',
+        itemsPerPage: 5,
+        currentPage: page,
+        totalItems:totalRecords}
       ">
+
         <td>{{ client.name }}</td>
         <td>{{ client.income }}</td>
         <td>{{ client.cpf }}</td>
         <td>{{ client.birthDate | date: 'dd/MM/yyyy HH:mm' }}</td>
         <td>{{ client.children }}</td>
         <td>
-
             <button type="button" class="btn btn-success">Editar</button>
             <button type="button" class="btn btn-danger">Excluir</button>
         </td>
@@ -43,7 +42,7 @@
   </tbody>
 </table>
 <div>
-  <pagination-controls  (click)="getUsers()" id="listing_pagination" (pageChange)="page = $event"></pagination-controls>
+  <pagination-controls  (click)="getClients()" id="listing_pagination" (pageChange)="page = $event"></pagination-controls>
 </div>
 
 

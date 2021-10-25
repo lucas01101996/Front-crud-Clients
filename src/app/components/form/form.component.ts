@@ -1,7 +1,8 @@
 import { Client } from './../../models/client';
 import { ClientService } from "src/services/client.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -9,31 +10,38 @@ import { Observable } from 'rxjs';
 })
 
 export class FormComponent implements OnInit{
+  public liveForm!: FormGroup;
 
-
-  data: Array<any>
-
-  constructor(private clientService: ClientService){
-    this.data = new Array<any>();
-
+  clients$: Observable<Client[]>;
+  constructor(
+    private clientService: ClientService,
+    private fb: FormBuilder,
+    /* public dialog: MatDialogRef<FormComponent> */) {
+        this.clients$ = this.clientService.list();
   }
 
 
   ngOnInit(): void{
     //this.client = this.clientService.retrieveById(this.client.id)
+    this.liveForm = this.fb.group({
+      name: ['', [Validators.required]],
+      cpf: ['', [Validators.required]],
+      income: [null, [Validators.required]],
+      birthDate: ['1975-05-28T02:00:00Z', [Validators.required]],
+      children: [null, [Validators.required]],
+    });
   }
 
   onSubmit(){
-
+    console.log(this.liveForm)
 
   }
 
   onCancel(){
-
+    this.liveForm.reset();
   }
 
-
-  save(): void{
-    alert('cliente salvo')
+  createClient(){
+    this.clientService.create(this.liveForm.value).subscribe(resp => {});
   }
 }

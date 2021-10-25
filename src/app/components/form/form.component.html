@@ -1,38 +1,37 @@
 <h2>Formulario</h2>
 <div class="row">
-  <form class="row g-3" #clientForm = "ngForm">
+  <form class="row g-3" [formGroup] ="liveForm" (ngSubmit) = "onSubmit" ><!-- #clientForm = "ngForm" -->
       <div class="col-md-6">
         <label for="inputName" class="form-label">Name</label>
-        <input  type="text" class="form-control" id="inputName">
+        <input  type="text" class="form-control" id="inputName" formControlName = "name">
       </div>
 
       <div class="col-md-6">
         <label for="inputCpf" class="form-label">Cpf</label>
-        <input type="text" class="form-control" id="inputCpf">
+        <input type="text" class="form-control" id="inputCpf" formControlName = "cpf">
       </div>
 
       <div class="col-md-6">
         <label for="inputIncome" class="form-label">Income</label>
-        <input type="number" placeholder="R$" class="form-control" id="inputIncome">
+        <input type="number" placeholder="R$" class="form-control" id="inputIncome" formControlName = "income">
       </div>
 
       <div class="col-md-4">
         <label for="inputChildren" class="form-label">Children</label>
-        <select id="inputChildren" class="form-select">
+        <input type="number" class="form-control" id="inputChildren" formControlName = "children">
+        <!-- <select id="inputChildren" class="form-select">
           <option selected>Choose...</option>
           <option>...</option>
-        </select>
+        </select> -->
       </div>
 
       <div class="col-md-2">
         <label for="inputBirth" class="form-label">BirthDate</label>
-        <input type="date" placeholder="dd/MM/yyyy HH:mm" class="form-control" id="inputBirth">
+        <input type="date" placeholder="dd/MM/yyyy HH:mm" class="form-control" id="inputBirth" formControlName = "birthDate">
       </div>
       <div class="col-12" style="margin-top: 10px">
-        <button type="submit" class="btn btn-primary" (click) = "save()">Salvar</button>
-        <button type="submit" class="btn btn-default" (click) = "save()">Cancelar</button>
+        <button type="submit" class="btn btn-primary" (click) = "createClient()">Salvar</button>
+        <button type="submit" class="btn btn-default"(click) = "onCancel()" >Cancelar</button>
       </div>
-
-
   </form>
-
+</div>
