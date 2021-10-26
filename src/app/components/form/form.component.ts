@@ -14,13 +14,9 @@ export class FormComponent implements OnInit{
   public liveForm!: FormGroup;
 
   clients$: Observable<Client[]>;
-  constructor(
-    private clientService: ClientService,
-    private fb: FormBuilder,
-    /* public dialog: MatDialogRef<FormComponent> */) {
+  constructor(private clientService: ClientService, private fb: FormBuilder) {
         this.clients$ = this.clientService.list();
   }
-
 
   ngOnInit(): void{
     //this.client = this.clientService.retrieveById(this.client.id)
@@ -48,6 +44,7 @@ export class FormComponent implements OnInit{
       console.log(resp.birthDate)
       alert('salvo com sucesso');
       this.liveForm.reset();
+      window.location.reload();
     });
 
   }

@@ -25,7 +25,7 @@ export class ClientService{
   list(): Observable<any> {
     return this.httpClient.get<Client[]>(this.API)
     .pipe(
-      delay(2000)
+      delay(1000)
       ,tap(resp=> console.log(resp)
       ));
   }
