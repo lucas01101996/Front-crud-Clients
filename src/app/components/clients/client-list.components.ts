@@ -28,7 +28,6 @@ export class ClientListComponent implements OnInit{//ciclo de vida OnInit
 
     getClients(){
       this.clientService.getLivesWithPage(0).subscribe(data =>{
-        console.log(data)
         this.clients = data.content;
         console.log(this.clients);
         this.totalRecords = data.content.length;

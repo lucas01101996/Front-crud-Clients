@@ -3,6 +3,7 @@ import { ClientService } from "src/services/client.service";
 import { Component, OnInit, Inject } from "@angular/core";
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-form',
@@ -27,14 +28,13 @@ export class FormComponent implements OnInit{
       name: ['', [Validators.required]],
       cpf: ['', [Validators.required]],
       income: [null, [Validators.required]],
-      birthDate: ['1975-05-28T02:00:00Z', [Validators.required]],
+      birthDate: ['', [Validators.required]],
       children: [null, [Validators.required]],
     });
   }
 
   onSubmit(){
     console.log(this.liveForm)
-
   }
 
   onCancel(){
@@ -42,6 +42,13 @@ export class FormComponent implements OnInit{
   }
 
   createClient(){
-    this.clientService.create(this.liveForm.value).subscribe(resp => {});
+    let newDate: moment.Moment = moment.utc(this.liveForm.value.birthDate).local();
+    this.liveForm.value.birthDate = newDate.format('YYYY-MM-DDTHH:MM:SSZ')
+    this.clientService.create(this.liveForm.value).subscribe(resp => {
+      console.log(resp.birthDate)
+      alert('salvo com sucesso');
+      this.liveForm.reset();
+    });
+
   }
 }

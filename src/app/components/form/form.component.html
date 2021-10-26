@@ -27,11 +27,11 @@
 
       <div class="col-md-2">
         <label for="inputBirth" class="form-label">BirthDate</label>
-        <input type="date" placeholder="dd/MM/yyyy HH:mm" class="form-control" id="inputBirth" formControlName = "birthDate">
+        <input type="datetime-local" placeholder="dd/MM/yyyy HH:mm" class="form-control" id="inputBirth" formControlName = "birthDate">
       </div>
       <div class="col-12" style="margin-top: 10px">
-        <button type="submit" class="btn btn-primary" (click) = "createClient()">Salvar</button>
-        <button type="submit" class="btn btn-default"(click) = "onCancel()" >Cancelar</button>
+        <button type="submit" class="btn btn-primary" (click) = "createClient()">Adicionar</button>
+        <button type="submit" class="btn btn-default"(click) = "onCancel()">Limpar</button>
       </div>
   </form>
 </div>
