@@ -11,7 +11,8 @@ import { ResponsePageable } from 'src/app/models/responsePageable.model';
 export class ClientService{
 
   /* private readonly API = '../assets/clients.json'; */
-  private readonly API = 'http://localhost:8080/clients';
+  private readonly API = 'http://localhost:8080/clients/';
+  private  API2 = 'http://localhost:8080/clients/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -35,7 +36,9 @@ export class ClientService{
   }
 
   create(client: any): Observable<Client>{
-    return this.httpClient.post<any>(this.API, client, this.httpOptions).pipe(take(1));
+    return this.httpClient.post<any>(this.API, client, this.httpOptions)
+    .pipe
+    (take(1));
   }
 
  update(client: any): Observable<Client>{
@@ -49,8 +52,8 @@ export class ClientService{
     return this.create(client);
   }
 
-  delete(id: any){
-    return this.httpClient.delete<any>(this.API, id).pipe(take(1));
+  delete(id: any): Observable<Client>{
+    return this.httpClient.delete<any>(`${this.API}/${id}`).pipe(take(1));
   }
 }
 

@@ -51,6 +51,7 @@ export class ClientListComponent implements OnInit{//ciclo de vida OnInit
     }
 
     onConfirmeDelete(){
+      console.log(this.clientSelect.id)
       this.clientService.delete(this.clientSelect.id).subscribe(resp =>{
         alert('curso removido com sucesso');
         window.location.reload()
