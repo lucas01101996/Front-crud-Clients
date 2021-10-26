@@ -9,6 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ModalModule } from 'ngx-bootstrap/modal' ;
 
 @NgModule({
   declarations: [
@@ -23,6 +24,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxPaginationModule,
     ReactiveFormsModule,
     MatDatepickerModule,
+    ModalModule.forRoot(),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

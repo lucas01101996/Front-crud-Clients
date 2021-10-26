@@ -1,14 +1,3 @@
-<div class="form-group row"><!--Isso tem que ta em form-->
-    <label class="col-sm-2 col-form-label">Pesquisar pelo nome:</label>
-
-    <div class="col-sm-7">
-      <input  class="form-control"><!-- [(ngModel)]= "filter" -->
-    </div>
-
-    <div class="col-sm-3">
-      <button type="submit" class="btn btn-primary">Novo Cliente</button>
-    </div>
-</div>
 <div *ngIf="clients$ | async; else loading">
   <table class="table table-striped">
     <thead>
@@ -22,38 +11,44 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor= "let client of clients | paginate: {
+      <tr *ngFor="let client of clients | paginate: {
           id: 'listing_pagination',
           itemsPerPage: 5,
           currentPage: page,
           totalItems:totalRecords}
         ">
 
-          <td>{{ client.name }}</td>
-          <td>{{ client.income }}</td>
-          <td>{{ client.cpf }}</td>
-          <td>{{ client.birthDate | date: 'dd/MM/yyyy HH:mm' }}</td>
-          <td>{{ client.children }}</td>
-          <td>
-              <button type="button" class="btn btn-success">Editar</button>
-              <button type="button" class="btn btn-danger">Excluir</button>
-          </td>
+        <td>{{ client.name }}</td>
+        <td>{{ client.income }}</td>
+        <td>{{ client.cpf }}</td>
+        <td>{{ client.birthDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ client.children }}</td>
+        <td>
+          <button type="button" class="btn btn-success" (click)="onEdit(client.id)">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="modalDelete(client.id)">Excluir</button>
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
 <div>
-  <pagination-controls  (click)="getClients()" id="listing_pagination" (pageChange)="page = $event"></pagination-controls>
+  <pagination-controls (click)="getClients()" id="listing_pagination" (pageChange)="page = $event">
+  </pagination-controls>
 </div>
 
-  <ng-template #loading>
-    <div class="d-flex justify-content-center">
-      <div class="spinner-border spinner-grow-sm" style="width: 3rem; height: 3rem;"role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
+<ng-template #loading>
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border spinner-grow-sm" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
-  </ng-template>
+  </div>
+</ng-template>
 
 
-
-
+<ng-template #deleteModal>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja remover esse cliente?</p>
+    <button type="button" class="btn btn-default" (click)="onConfirmeDelete()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="onDeclineDelete()">Não</button>
+  </div>
+</ng-template>

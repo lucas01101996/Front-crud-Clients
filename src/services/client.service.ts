@@ -35,7 +35,22 @@ export class ClientService{
   }
 
   create(client: any): Observable<Client>{
-    return this.httpClient.post<any>(this.API, client, this.httpOptions);
+    return this.httpClient.post<any>(this.API, client, this.httpOptions).pipe(take(1));
+  }
+
+ update(client: any): Observable<Client>{
+    return this.httpClient.put<any>(this.API, client.id, this.httpOptions).pipe(take(1));
+  }
+
+  save(client: any){
+    if(client.id){
+      return this.update(client);
+    }
+    return this.create(client);
+  }
+
+  delete(id: any){
+    return this.httpClient.delete<any>(this.API, id).pipe(take(1));
   }
 }
 

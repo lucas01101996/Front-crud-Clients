@@ -1,7 +1,8 @@
 import { ClientService } from '../../../services/client.service';
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Client } from "../../models/client";
 import { Observable } from 'rxjs';
+import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-client-list',
@@ -18,7 +19,12 @@ export class ClientListComponent implements OnInit{//ciclo de vida OnInit
     totalRecords: number = 1;
     page:number = 1;
 
-    constructor(private clientService :ClientService){
+    deleteModalRef!: BsModalRef;
+    @ViewChild('deleteModal') deleteModal: any;
+
+    clientSelect!: Client;
+
+    constructor(private clientService :ClientService, private modalService: BsModalService){
       this.clients$ = this.clientService.list();
     }
 
@@ -34,12 +40,26 @@ export class ClientListComponent implements OnInit{//ciclo de vida OnInit
       })
     }
 
-    postData(){
+    onEdit(id: any){
 
     }
 
+    modalDelete(client: any){
+      this.clientSelect = client;
+      console.log(this.clientSelect)
+      this.deleteModalRef = this.modalService.show(this.deleteModal, {class: 'modal-sm'});
+    }
 
+    onConfirmeDelete(){
+      this.clientService.delete(this.clientSelect.id).subscribe(resp =>{
+        alert('curso removido com sucesso');
+        window.location.reload()
+      });
+    }
 
+    onDeclineDelete(){
+      this.deleteModalRef.hide();
+    }
 
 
 
